@@ -1,4 +1,5 @@
 import pygame
+import pygame.draw
 
 
 class TikTakToe:
@@ -13,17 +14,17 @@ class TikTakToe:
         self.window.fill(background_colour)
         pygame.display.set_caption("Tik Tak Toe")
 
-    def draw_grid(self):
+    def draw_grid(self, start_position, size):
 
-        grid_width, grid_height = 300, 300
 
-        line_start_locations = [(grid_width * 0.33, grid_height * 0.1), (grid_width * 0.66, grid_height * 0.1),
-                                (grid_width * 0.1, grid_height * 0.33), (grid_width * 0.1, grid_height * 0.66)]
-        line_end_locations = [(grid_width * 0.33, grid_height * 0.9), (grid_width * 0.66, grid_height * 0.9),
-                              (grid_width * 0.9, grid_height * 0.33), (grid_width * 0.9, grid_height * 0.66)]
+        for i in range(1,3):
 
-        for i, start_location in enumerate(line_start_locations):
-            pygame.draw.line(self.window, (0, 0, 0), start_location, line_end_locations[i])
+            pygame.draw.line(self.window, (0,0,0), (start_position[0], size*0.33*i + start_position[1]),
+                             (size+start_position[0], start_position[1] + size*0.33*i))
+            
+            pygame.draw.line(self.window,(0,0,0), (size*0.33*i + start_position[0], start_position[1]),
+                             (start_position[0] + size *0.33*i, size+start_position[1]))
+
 
     def run(self):
 
@@ -37,5 +38,5 @@ class TikTakToe:
 
 
 TTT = TikTakToe()
-TTT.draw_grid()
+TTT.draw_grid((10,10),200)
 TTT.run()
