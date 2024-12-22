@@ -36,9 +36,25 @@ class TikTakToe:
                              (start_position[0] + size *0.33*i, size+start_position[1]))
 
             #add a grid position for each "square" in the grid
+        self.get_cell_locations()
 
     def get_cell_locations(self):
-        pass
+        
+        start_x, start_y = self.start_position
+
+        cell_size = self.grid_size * 0.33
+
+        for i in range (3):
+            current_y = start_y + cell_size*i
+            for j in range(3):
+                current_x = cell_size*j + start_x
+                cell_locations = []
+                cell_locations.append([current_x,current_y])
+                cell_locations.append([current_x + cell_size, current_y])
+                cell_locations.append([current_x, current_y + cell_size])
+                cell_locations.append([current_x + cell_size, current_y + cell_size])
+
+                print(f"{cell_locations =}")
 
     def run(self):
 
@@ -48,10 +64,10 @@ class TikTakToe:
                 if event.type == pygame.QUIT:
                     running = False
 
-                print(f"{pygame.mouse.get_pos() = }")
+                #print(f"{pygame.mouse.get_pos() = }")
                 pygame.display.update()
 
 
 TTT = TikTakToe()
-TTT.draw_grid((10,10),200)
+TTT.draw_grid((0,0),200)
 TTT.run()
