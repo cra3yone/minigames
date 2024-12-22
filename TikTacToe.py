@@ -1,6 +1,8 @@
 import pygame
 import pygame.draw
+import time
 
+import pygame.mouse
 
 class TikTakToe:
 
@@ -14,8 +16,16 @@ class TikTakToe:
         self.window.fill(background_colour)
         pygame.display.set_caption("Tik Tak Toe")
 
-    def draw_grid(self, start_position, size):
+        self.start_position = None
+        self.grid_size = None
 
+        self.cell_locations = []
+
+
+    def draw_grid(self, start_position, size):
+        
+        self.start_position = start_position
+        self.grid_size = size
 
         for i in range(1,3):
 
@@ -27,6 +37,8 @@ class TikTakToe:
 
             #add a grid position for each "square" in the grid
 
+    def get_cell_locations(self):
+        pass
 
     def run(self):
 
@@ -36,6 +48,7 @@ class TikTakToe:
                 if event.type == pygame.QUIT:
                     running = False
 
+                print(f"{pygame.mouse.get_pos() = }")
                 pygame.display.update()
 
 
