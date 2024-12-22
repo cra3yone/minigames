@@ -25,6 +25,8 @@ class TikTakToe:
             pygame.draw.line(self.window,(0,0,0), (size*0.33*i + start_position[0], start_position[1]),
                              (start_position[0] + size *0.33*i, size+start_position[1]))
 
+            #add a grid position for each "square" in the grid
+
 
     def run(self):
 
