@@ -19,6 +19,8 @@ class TikTakToe:
         self.start_position = None
         self.grid_size = None
 
+        self.crosses_turn = False
+
         self.cell_locations = []
 
 
