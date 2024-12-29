@@ -17,12 +17,16 @@ class TikTakToe:
         pygame.display.set_caption("Tik Tak Toe")
 
         self.start_position = None
+
         self.grid_size = None
+
 
         self.crosses_turn = False
 
         self.cell_locations = []
-
+        self.cell_empty = [i*0 for i in range(9)]
+        
+        print(f"{self.cell_empty = }")
 
     def draw_grid(self, start_position, size):
         
@@ -46,7 +50,7 @@ class TikTakToe:
 
         cell_size = self.grid_size * 0.33
 
-        for i in range (3):
+        for i in range(3):
             current_y = start_y + cell_size*i
             for j in range(3):
                 current_x = cell_size*j + start_x
