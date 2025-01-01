@@ -63,15 +63,25 @@ class TikTakToe:
                 print(f"{cell_locations = }")
 
     def get_cell_clicked(self):
-        pass
+        
+        print(f"The mouse was clicked at {pygame.mouse.get_pos()}")
 
     def run(self):
-
+        
+        mouse_down = False
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_down = True
+
+                if event.type == pygame.MOUSEBUTTONUP and mouse_down == True:
+                    mouse_down = False
+                    self.get_cell_clicked()
+
 
                 #print(f"{pygame.mouse.get_pos() = }")
                 pygame.display.update()
