@@ -60,7 +60,10 @@ class TikTakToe:
                 cell_locations.append([current_x, current_y + cell_size])
                 cell_locations.append([current_x + cell_size, current_y + cell_size])
 
-                print(f"{cell_locations =}")
+                print(f"{cell_locations = }")
+
+    def get_cell_clicked(self):
+        pass
 
     def run(self):
 
