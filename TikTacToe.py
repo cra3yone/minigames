@@ -26,7 +26,7 @@ class TikTakToe:
         self.cell_locations = []
         self.cell_empty = [i*0 for i in range(9)]
         
-        print(f"{self.cell_empty = }")
+        #print(f"{self.cell_empty = }")
 
     def draw_grid(self, start_position, size):
         
@@ -60,11 +60,24 @@ class TikTakToe:
                 cell_locations.append([current_x, current_y + cell_size])
                 cell_locations.append([current_x + cell_size, current_y + cell_size])
 
-                print(f"{cell_locations = }")
+                #print(f"{cell_locations = }")
+                self.cell_locations.append(cell_locations)
 
     def get_cell_clicked(self):
         
         print(f"The mouse was clicked at {pygame.mouse.get_pos()}")
+        print(f"start position: {self.start_position}, grid size: {self.grid_size}")
+
+        current_x, current_y = pygame.mouse.get_pos()
+        
+        print(f"{current_x = }, {current_y}")
+
+        for i,cell in enumerate(self.cell_locations):
+            print(f"{i},{cell}")
+            if current_x > cell[0][0] and current_x < cell[3][0]:
+                if current_y > cell[0][1] and current_y < cell[3][1]:
+                    print(f"Clicked cell {i}")
+    
 
     def run(self):
         
