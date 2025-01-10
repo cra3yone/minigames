@@ -65,9 +65,6 @@ class TikTakToe:
 
     def get_cell_clicked(self):
         
-        print(f"The mouse was clicked at {pygame.mouse.get_pos()}")
-        print(f"start position: {self.start_position}, grid size: {self.grid_size}")
-
         current_x, current_y = pygame.mouse.get_pos()
         
         print(f"{current_x = }, {current_y}")
@@ -76,11 +73,27 @@ class TikTakToe:
             #print(f"{i},{cell}")
             if current_x > cell[0][0] and current_x < cell[3][0]:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
-                    print(f"Clicked on {i}")
+                    print(f"Clicked on cell {i}")
                     return cell
     
-    def draw_cross(self):
-        pass
+    def draw_cross(self,location):
+        
+        colour = (255,255,255)
+        
+        l1_start_x = location[0][0] * 1.1
+        l1_start_y = location[0][1] * 1.1
+
+        l1_end_x = location[3][0] * 0.9 
+        l1_end_y = location[3][1] * 0.9
+
+        l2_start_x = location[1][0] * 0.9
+        l2_start_y = location[1][1] * 1.1
+
+        l2_end_x = location[2][0] * 1.1
+        l2_end_y = location[2][1] * 0.9
+
+        pygame.draw.line(self.window, color=colour, start_pos=(l1_start_x, l1_start_y), end_pos=(l1_end_x,l1_end_y))
+        pygame.draw.line(self.window, color=colour, start_pos=(l2_start_x, l2_start_y), end_pos=(l2_end_x,l2_end_y))
 
     def draw_circle(self,location):
         
@@ -110,7 +123,7 @@ class TikTakToe:
                 if event.type == pygame.MOUSEBUTTONUP and mouse_down == True:
                     mouse_down = False
                     clicked_cell = self.get_cell_clicked()
-                    self.draw_circle(clicked_cell)
+                    self.draw_cross(clicked_cell)
 
 
                 #print(f"{pygame.mouse.get_pos() = }")
