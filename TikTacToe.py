@@ -73,15 +73,31 @@ class TikTakToe:
         print(f"{current_x = }, {current_y}")
 
         for i,cell in enumerate(self.cell_locations):
-            print(f"{i},{cell}")
+            #print(f"{i},{cell}")
             if current_x > cell[0][0] and current_x < cell[3][0]:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
-                    print(f"Clicked cell {i}")
+                    print(f"Clicked on {i}")
+                    return cell
     
+    def draw_cross(self):
+        pass
+
+    def draw_circle(self,location):
+        
+        colour = (255,255,255)
+        print(location)
+        center_x = (location[1][0] - location[0][0])/2 + location[0][0]
+        center_y = (location[3][1] - location[0][1])/2 + location[0][1]
+
+        print(f"{center_x = }, {center_y = }")
+        pygame.draw.circle(self.window, color=colour, center=(center_x,center_y),radius=25,width=4)
+
+
 
     def run(self):
         
         mouse_down = False
+        x_turn = True
         running = True
         while running:
             for event in pygame.event.get():
@@ -93,7 +109,8 @@ class TikTakToe:
 
                 if event.type == pygame.MOUSEBUTTONUP and mouse_down == True:
                     mouse_down = False
-                    self.get_cell_clicked()
+                    clicked_cell = self.get_cell_clicked()
+                    self.draw_circle(clicked_cell)
 
 
                 #print(f"{pygame.mouse.get_pos() = }")
