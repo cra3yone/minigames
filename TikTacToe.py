@@ -92,8 +92,8 @@ class TikTakToe:
         l2_end_x = location[2][0] * 1.1
         l2_end_y = location[2][1] * 0.9
 
-        pygame.draw.line(self.window, color=colour, start_pos=(l1_start_x, l1_start_y), end_pos=(l1_end_x,l1_end_y))
-        pygame.draw.line(self.window, color=colour, start_pos=(l2_start_x, l2_start_y), end_pos=(l2_end_x,l2_end_y))
+        pygame.draw.line(self.window, color=colour, start_pos=(l1_start_x, l1_start_y), end_pos=(l1_end_x,l1_end_y),width=3)
+        pygame.draw.line(self.window, color=colour, start_pos=(l2_start_x, l2_start_y), end_pos=(l2_end_x,l2_end_y),width=3)
 
     def draw_circle(self,location):
         
@@ -104,8 +104,6 @@ class TikTakToe:
 
         print(f"{center_x = }, {center_y = }")
         pygame.draw.circle(self.window, color=colour, center=(center_x,center_y),radius=25,width=4)
-
-
 
     def run(self):
         
