@@ -123,7 +123,13 @@ class TikTakToe:
                 if event.type == pygame.MOUSEBUTTONUP and mouse_down == True:
                     mouse_down = False
                     clicked_cell = self.get_cell_clicked()
-                    self.draw_cross(clicked_cell)
+
+                    if x_turn:
+                        self.draw_cross(clicked_cell)
+                        x_turn = False
+                    else:
+                        self.draw_circle(clicked_cell)
+                        x_turn = True
 
 
                 #print(f"{pygame.mouse.get_pos() = }")
@@ -131,5 +137,5 @@ class TikTakToe:
 
 
 TTT = TikTakToe()
-TTT.draw_grid((0,0),200)
+TTT.draw_grid((10,10),200)
 TTT.run()
