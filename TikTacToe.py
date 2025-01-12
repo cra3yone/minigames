@@ -70,11 +70,12 @@ class TikTakToe:
         print(f"{current_x = }, {current_y}")
 
         for i,cell in enumerate(self.cell_locations):
-            #print(f"{i},{cell}")
             if current_x > cell[0][0] and current_x < cell[3][0]:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
                     print(f"Clicked on cell {i}")
                     return cell
+            
+        return None
     
     def draw_cross(self,location):
         
@@ -122,15 +123,14 @@ class TikTakToe:
                     mouse_down = False
                     clicked_cell = self.get_cell_clicked()
 
-                    if x_turn:
-                        self.draw_cross(clicked_cell)
-                        x_turn = False
-                    else:
-                        self.draw_circle(clicked_cell)
-                        x_turn = True
+                    if clicked_cell is not None:
+                        if x_turn:
+                            self.draw_cross(clicked_cell)
+                            x_turn = False
+                        else:
+                            self.draw_circle(clicked_cell)
+                            x_turn = True
 
-
-                #print(f"{pygame.mouse.get_pos() = }")
                 pygame.display.update()
 
 
