@@ -73,6 +73,8 @@ class TikTakToe:
             if current_x > cell[0][0] and current_x < cell[3][0]:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
                     print(f"Clicked on cell {i}")
+                    self.cell_locations.remove(cell)
+                    self.cell_empty[i] = False
                     return cell
             
         return None
