@@ -28,6 +28,9 @@ class TikTakToe:
         
         self.game_grid = np.empty((3,3))
 
+        self.cross_number = 1
+        self.circle_number = 2
+
     def draw_grid(self, start_position, size):
         
         self.start_position = start_position
@@ -75,10 +78,10 @@ class TikTakToe:
             if current_x > cell[0][0] and current_x < cell[3][0]:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
                     if self.cell_empty[i] != 1:
-                        print(f"Clicked on cell {i}")
+                        #print(f"Clicked on cell {i}")
                         #self.cell_locations.remove(cell)
                         self.cell_empty[i] = 1
-                        print(f"{self.cell_empty = }")
+                        #print(f"{self.cell_empty = }")
                         return i,cell
             
         return None,None
@@ -122,30 +125,44 @@ class TikTakToe:
         if symbol is None:
             return None
 
-        print(f"{ind = }")
+        #print(f"{ind = }")
         x = ind % 3
         y = self.round_down(ind/3)
 
         self.game_grid[y][x] = symbol
-        print(f"Places at {x = }, {y = }")
-        print(self.game_grid)
+        #print(f"Places at {x = }, {y = }")
+        #print(self.game_grid)
 
     def check_for_winner(self):
+        
+        cross_win = [self.cross_number] * 3
+        circle_win = [self.circle_number] * 3
 
-        test = [i for i in range(9)]
-        test = np.array(test).reshape(3,3)
+        cross_win = np.array(cross_win)
+        circle_win = np.array(circle_win)
 
         for i in range(3):
-            print(f"Row {i = }, {test[i]}")
-            print(f"Column {i = }, {test[:,i]}")
+            #print(f"Row {i = }, {self.game_grid[i]}")
+            #print(f"Column {i = }, {self.game_grid[:,i]}")
+            #print(self.game_grid[i])
+            #print(cross_win)
 
-        print(f"{test.diagonal() = }")
+            if (self.game_grid[i] == cross_win).all():
+                print("cross won")
+
+            if (self.game_grid[:, i] == cross_win).all():
+                print("circle won")
+
+        if (self.game_grid.diagonal() == cross_win).all():
+            print("Cross Won")
 
     def run(self):
         
         mouse_down = False
         x_turn = True
         running = True
+        number_of_turns = 0
+
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -159,15 +176,19 @@ class TikTakToe:
                     clicked_index,clicked_cell = self.get_cell_clicked()
 
                     if clicked_cell is not None:
+                        number_of_turns += 1
                         if x_turn:
                             self.draw_cross(clicked_cell)
-                            self.update_game_board(clicked_index, 1)
+                            self.update_game_board(clicked_index, self.cross_number)
                             x_turn = False
                         else:
                             self.draw_circle(clicked_cell)
-                            self.update_game_board(clicked_index, 2)
+                            self.update_game_board(clicked_index, self.circle_number)
                             x_turn = True
-                        #self.check_for_winner()
+                        self.check_for_winner()
+
+                        if number_of_turns == 9:
+                            print("It's a draw")
                 pygame.display.update()
 
 
