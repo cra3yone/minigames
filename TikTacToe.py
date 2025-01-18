@@ -109,12 +109,20 @@ class TikTakToe:
         print(f"{center_x = }, {center_y = }")
         pygame.draw.circle(self.window, color=colour, center=(center_x,center_y),radius=25,width=4)
 
-    
+    def round_down(self, number):
+
+        number = str(number)
+        return int(number.split(".")[0])
+
     def check_for_winner(self):
 
         test = [i for i in range(9)]
-        test = np.array(test)
-        print(test)
+        test = np.array(test).reshape(3,3)
+
+        for i in range(9):
+            print("\n",i)
+            print(f"X = {i % 3 = }")
+            print(f"Y = {self.round_down(i / 3) = }")
 
     def run(self):
         
