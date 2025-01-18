@@ -21,13 +21,12 @@ class TikTakToe:
 
         self.grid_size = None
 
-
         self.crosses_turn = False
 
         self.cell_locations = []
         #self.cell_empty = [i*0 for i in range(9)]
         
-        game_grid = np.empty((3,3))
+        self.game_grid = np.empty((3,3))
 
     def draw_grid(self, start_position, size):
         
@@ -52,8 +51,11 @@ class TikTakToe:
         cell_size = self.grid_size * 0.33
 
         for i in range(3):
+
             current_y = start_y + cell_size*i
+
             for j in range(3):
+
                 current_x = cell_size*j + start_x
                 cell_locations = []
                 cell_locations.append([current_x,current_y])
@@ -61,7 +63,6 @@ class TikTakToe:
                 cell_locations.append([current_x, current_y + cell_size])
                 cell_locations.append([current_x + cell_size, current_y + cell_size])
 
-                #print(f"{cell_locations = }")
                 self.cell_locations.append(cell_locations)
 
     def get_cell_clicked(self):
@@ -74,9 +75,9 @@ class TikTakToe:
             if current_x > cell[0][0] and current_x < cell[3][0]:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
                     print(f"Clicked on cell {i}")
-                    self.cell_locations.remove(cell)
+                    #self.cell_locations.remove(cell)
                     #self.cell_empty[i] = False
-                    return cell
+                    return i,cell
             
         return None
     
@@ -102,17 +103,27 @@ class TikTakToe:
     def draw_circle(self,location):
         
         colour = (255,255,255)
-        print(location)
+        #print(location)
         center_x = (location[1][0] - location[0][0])/2 + location[0][0]
         center_y = (location[3][1] - location[0][1])/2 + location[0][1]
 
-        print(f"{center_x = }, {center_y = }")
+        #print(f"{center_x = }, {center_y = }")
         pygame.draw.circle(self.window, color=colour, center=(center_x,center_y),radius=25,width=4)
 
     def round_down(self, number):
 
         number = str(number)
         return int(number.split(".")[0])
+
+    def update_game_board(self,ind, symbol):
+
+        print(f"{ind = }")
+        x = ind % 3
+        y = self.round_down(ind/3)
+
+        self.game_grid[y][x] = symbol
+        print(f"Places at {x = }, {y = }")
+        print(self.game_grid)
 
     def check_for_winner(self):
 
@@ -140,17 +151,18 @@ class TikTakToe:
 
                 if event.type == pygame.MOUSEBUTTONUP and mouse_down == True:
                     mouse_down = False
-                    clicked_cell = self.get_cell_clicked()
+                    clicked_index,clicked_cell = self.get_cell_clicked()
 
                     if clicked_cell is not None:
                         if x_turn:
                             self.draw_cross(clicked_cell)
+                            self.update_game_board(clicked_index, 1)
                             x_turn = False
                         else:
                             self.draw_circle(clicked_cell)
+                            self.update_game_board(clicked_index, 2)
                             x_turn = True
-                        
-                        self.check_for_winner()
+                        #self.check_for_winner()
                 pygame.display.update()
 
 
