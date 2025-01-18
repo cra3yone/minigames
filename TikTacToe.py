@@ -24,7 +24,7 @@ class TikTakToe:
         self.crosses_turn = False
 
         self.cell_locations = []
-        #self.cell_empty = [i*0 for i in range(9)]
+        self.cell_empty = [i*0 for i in range(9)]
         
         self.game_grid = np.empty((3,3))
 
@@ -69,17 +69,19 @@ class TikTakToe:
         
         current_x, current_y = pygame.mouse.get_pos()
         
-        print(f"{current_x = }, {current_y}")
+        #print(f"{current_x = }, {current_y}")
 
         for i,cell in enumerate(self.cell_locations):
             if current_x > cell[0][0] and current_x < cell[3][0]:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
-                    print(f"Clicked on cell {i}")
-                    #self.cell_locations.remove(cell)
-                    #self.cell_empty[i] = False
-                    return i,cell
+                    if self.cell_empty[i] != 1:
+                        print(f"Clicked on cell {i}")
+                        #self.cell_locations.remove(cell)
+                        self.cell_empty[i] = 1
+                        print(f"{self.cell_empty = }")
+                        return i,cell
             
-        return None
+        return None,None
     
     def draw_cross(self,location):
         
@@ -116,6 +118,9 @@ class TikTakToe:
         return int(number.split(".")[0])
 
     def update_game_board(self,ind, symbol):
+        
+        if symbol is None:
+            return None
 
         print(f"{ind = }")
         x = ind % 3
