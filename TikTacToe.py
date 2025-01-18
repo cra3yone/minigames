@@ -1,5 +1,6 @@
 import pygame
 import pygame.draw
+import numpy as np
 import time
 
 import pygame.mouse
@@ -24,9 +25,9 @@ class TikTakToe:
         self.crosses_turn = False
 
         self.cell_locations = []
-        self.cell_empty = [i*0 for i in range(9)]
+        #self.cell_empty = [i*0 for i in range(9)]
         
-        #print(f"{self.cell_empty = }")
+        game_grid = np.empty((3,3))
 
     def draw_grid(self, start_position, size):
         
@@ -74,7 +75,7 @@ class TikTakToe:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
                     print(f"Clicked on cell {i}")
                     self.cell_locations.remove(cell)
-                    self.cell_empty[i] = False
+                    #self.cell_empty[i] = False
                     return cell
             
         return None
@@ -108,6 +109,13 @@ class TikTakToe:
         print(f"{center_x = }, {center_y = }")
         pygame.draw.circle(self.window, color=colour, center=(center_x,center_y),radius=25,width=4)
 
+    
+    def check_for_winner(self):
+
+        test = [i for i in range(9)]
+        test = np.array(test)
+        print(test)
+
     def run(self):
         
         mouse_down = False
@@ -132,7 +140,8 @@ class TikTakToe:
                         else:
                             self.draw_circle(clicked_cell)
                             x_turn = True
-
+                        
+                        self.check_for_winner()
                 pygame.display.update()
 
 
