@@ -119,10 +119,11 @@ class TikTakToe:
         test = [i for i in range(9)]
         test = np.array(test).reshape(3,3)
 
-        for i in range(9):
-            print("\n",i)
-            print(f"X = {i % 3 = }")
-            print(f"Y = {self.round_down(i / 3) = }")
+        for i in range(3):
+            print(f"Row {i = }, {test[i]}")
+            print(f"Column {i = }, {test[:,i]}")
+
+        print(f"{test.diagonal() = }")
 
     def run(self):
         
