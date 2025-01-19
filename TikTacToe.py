@@ -142,19 +142,33 @@ class TikTakToe:
         circle_win = np.array(circle_win)
 
         for i in range(3):
-            #print(f"Row {i = }, {self.game_grid[i]}")
-            #print(f"Column {i = }, {self.game_grid[:,i]}")
-            #print(self.game_grid[i])
-            #print(cross_win)
 
             if (self.game_grid[i] == cross_win).all():
                 print("cross won")
+                return True
+            
+            if (self.game_grid[i] == circle_win).all():
+                print("Circle won")
+                return True
 
             if (self.game_grid[:, i] == cross_win).all():
-                print("circle won")
+                print("cross won")
+                return True
+
+            if (self.game_grid[:, i] == circle_win).all():
+                print("Circle Won")
+                return True
 
         if (self.game_grid.diagonal() == cross_win).all():
             print("Cross Won")
+            return True
+        
+        if (self.game_grid.diagonal() == circle_win).all():
+            print("Circle Won")
+            return True
+        
+        return False
+
 
     def run(self):
         
@@ -185,7 +199,9 @@ class TikTakToe:
                             self.draw_circle(clicked_cell)
                             self.update_game_board(clicked_index, self.circle_number)
                             x_turn = True
-                        self.check_for_winner()
+                        
+                        if self.check_for_winner():
+                            running = False
 
                         if number_of_turns == 9:
                             print("It's a draw")
