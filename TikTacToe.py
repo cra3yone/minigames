@@ -1,20 +1,16 @@
 import pygame
-import pygame.draw
 import numpy as np
-import time
-
-import pygame.mouse
 
 class TikTakToe:
 
     def __init__(self):
         pygame.init()
 
-        background_colour = (197, 145, 149)
+        self.background_colour = (197, 145, 149)
         self.width, self.height = (300, 300)
 
         self.window = pygame.display.set_mode((self.width, self.height))
-        self.window.fill(background_colour)
+        self.window.fill(self.background_colour)
         pygame.display.set_caption("Tik Tak Toe")
 
         self.start_position = None
@@ -31,6 +27,8 @@ class TikTakToe:
 
         self.cross_number = 1
         self.circle_number = 2
+
+        self.number_of_turns = 0
 
     def draw_grid(self, start_position, size):
         
@@ -88,20 +86,6 @@ class TikTakToe:
 
         x_indent= self.cell_size * 0.1
         y_indent = self.cell_size * 0.1
-        
-        """
-        l1_start_x = location[0][0] * 1.1
-        l1_start_y = location[0][1] * 1.1
-
-        l1_end_x = location[3][0] * 0.9 
-        l1_end_y = location[3][1] * 0.9
-
-        l2_start_x = location[1][0] * 0.9
-        l2_start_y = location[1][1] * 1.1
-
-        l2_end_x = location[2][0] * 1.1
-        l2_end_y = location[2][1] * 0.9
-        """
 
         l1_start_x = location[0][0] + x_indent
         l1_start_y = location[0][1] + y_indent
@@ -187,14 +171,19 @@ class TikTakToe:
         return False
 
     def reset_game(self):
-        pass
+        grid_start_location = self.start_position
+        grid_size = self.grid_size
+        self.__init__()
+        self.draw_grid(grid_start_location,grid_size)
+        print("Game has been reset")
+        
 
     def run(self):
         
         mouse_down = False
         x_turn = True
         running = True
-        number_of_turns = 0
+        winner_found = False
 
         while running:
             for event in pygame.event.get():
@@ -204,12 +193,12 @@ class TikTakToe:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_down = True
 
-                if event.type == pygame.MOUSEBUTTONUP and mouse_down == True:
+                if event.type == pygame.MOUSEBUTTONUP and mouse_down:
                     mouse_down = False
                     clicked_index,clicked_cell = self.get_cell_clicked()
 
                     if clicked_cell is not None:
-                        number_of_turns += 1
+                        self.number_of_turns += 1
                         if x_turn:
                             self.draw_cross(clicked_cell)
                             self.update_game_board(clicked_index, self.cross_number)
@@ -220,9 +209,11 @@ class TikTakToe:
                             x_turn = True
                         
                         if self.check_for_winner():
-                            running = False
+                            winner_found = True
+                            #running = False
+                            self.reset_game()
 
-                        if number_of_turns == 9:
+                        if self.number_of_turns == 9 and not winner_found:
                             print("It's a draw")
                             
                 pygame.display.update()
