@@ -20,6 +20,7 @@ class TikTakToe:
         self.start_position = None
 
         self.grid_size = None
+        self.cell_size = None
 
         self.crosses_turn = False
 
@@ -35,6 +36,7 @@ class TikTakToe:
         
         self.start_position = start_position
         self.grid_size = size
+        self.cell_size = size * 0.33
 
         for i in range(1,3):
 
@@ -83,7 +85,11 @@ class TikTakToe:
     def draw_cross(self,location):
         
         colour = (255,255,255)
+
+        x_indent= self.cell_size * 0.1
+        y_indent = self.cell_size * 0.1
         
+        """
         l1_start_x = location[0][0] * 1.1
         l1_start_y = location[0][1] * 1.1
 
@@ -95,6 +101,19 @@ class TikTakToe:
 
         l2_end_x = location[2][0] * 1.1
         l2_end_y = location[2][1] * 0.9
+        """
+
+        l1_start_x = location[0][0] + x_indent
+        l1_start_y = location[0][1] + y_indent
+
+        l1_end_x = location[3][0] - x_indent
+        l1_end_y = location[3][1] - y_indent
+
+        l2_start_x = location[1][0] - x_indent
+        l2_start_y = location[1][1] + y_indent
+
+        l2_end_x = location[2][0] + x_indent
+        l2_end_y = location[2][1] - y_indent
 
         pygame.draw.line(self.window, color=colour, start_pos=(l1_start_x, l1_start_y), end_pos=(l1_end_x,l1_end_y),width=3)
         pygame.draw.line(self.window, color=colour, start_pos=(l2_start_x, l2_start_y), end_pos=(l2_end_x,l2_end_y),width=3)
@@ -152,6 +171,14 @@ class TikTakToe:
         if (self.game_grid.diagonal() == cross_win).all():
             print("Cross Won")
             return True
+
+        if (np.diag(np.fliplr(self.game_grid)) == cross_win).all():
+            print("Cross Won")
+            return True
+
+        if (np.diag(np.fliplr(self.game_grid)) == circle_win).all():
+            print("Circle Won")
+            return True 
         
         if (self.game_grid.diagonal() == circle_win).all():
             print("Circle Won")
