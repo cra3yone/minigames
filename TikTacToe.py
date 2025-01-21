@@ -44,7 +44,6 @@ class TikTakToe:
             pygame.draw.line(self.window,(0,0,0), (size*0.33*i + start_position[0], start_position[1]),
                              (start_position[0] + size *0.33*i, size+start_position[1]))
 
-            #add a grid position for each "square" in the grid
         self.get_cell_locations()
 
     def get_cell_locations(self):
@@ -71,17 +70,12 @@ class TikTakToe:
     def get_cell_clicked(self):
         
         current_x, current_y = pygame.mouse.get_pos()
-        
-        #print(f"{current_x = }, {current_y}")
 
         for i,cell in enumerate(self.cell_locations):
             if current_x > cell[0][0] and current_x < cell[3][0]:
                 if current_y > cell[0][1] and current_y < cell[3][1]:
                     if self.cell_empty[i] != 1:
-                        #print(f"Clicked on cell {i}")
-                        #self.cell_locations.remove(cell)
                         self.cell_empty[i] = 1
-                        #print(f"{self.cell_empty = }")
                         return i,cell
             
         return None,None
@@ -108,11 +102,10 @@ class TikTakToe:
     def draw_circle(self,location):
         
         colour = (255,255,255)
-        #print(location)
+
         center_x = (location[1][0] - location[0][0])/2 + location[0][0]
         center_y = (location[3][1] - location[0][1])/2 + location[0][1]
 
-        #print(f"{center_x = }, {center_y = }")
         pygame.draw.circle(self.window, color=colour, center=(center_x,center_y),radius=25,width=4)
 
     def round_down(self, number):
@@ -125,13 +118,10 @@ class TikTakToe:
         if symbol is None:
             return None
 
-        #print(f"{ind = }")
         x = ind % 3
         y = self.round_down(ind/3)
 
         self.game_grid[y][x] = symbol
-        #print(f"Places at {x = }, {y = }")
-        #print(self.game_grid)
 
     def check_for_winner(self):
         
@@ -169,6 +159,8 @@ class TikTakToe:
         
         return False
 
+    def reset_game(self):
+        pass
 
     def run(self):
         
@@ -205,6 +197,7 @@ class TikTakToe:
 
                         if number_of_turns == 9:
                             print("It's a draw")
+                            
                 pygame.display.update()
 
 
