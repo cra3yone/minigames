@@ -23,10 +23,10 @@ class TikTakToe:
         self.cell_locations = []
         self.cell_empty = [i*0 for i in range(9)]
         
-        self.game_grid = np.empty((3,3))
+        self.game_grid = np.zeros((3,3))
 
         self.cross_number = 1
-        self.circle_number = 2
+        self.circle_number = -1
 
         self.number_of_turns = 0
 
@@ -208,10 +208,11 @@ class TikTakToe:
                             self.update_game_board(clicked_index, self.circle_number)
                             x_turn = True
                         
-                        if self.check_for_winner():
-                            winner_found = True
-                            #running = False
-                            self.reset_game()
+                        if self.number_of_turns > 4:
+                            if self.check_for_winner():
+                                winner_found = True
+                                #running = False
+                                self.reset_game()
 
                         if self.number_of_turns == 9 and not winner_found:
                             print("It's a draw")
