@@ -138,37 +138,49 @@ class TikTakToe:
 
             if (self.game_grid[i] == cross_win).all():
                 print("cross won")
+                self.cross_score += 1
                 return True
             
             if (self.game_grid[i] == circle_win).all():
                 print("Circle won")
+                self.circle_score += 1
                 return True
 
             if (self.game_grid[:, i] == cross_win).all():
                 print("cross won")
+                self.cross_score += 1
                 return True
 
             if (self.game_grid[:, i] == circle_win).all():
                 print("Circle Won")
+                self.circle_score += 1
                 return True
 
         if (self.game_grid.diagonal() == cross_win).all():
             print("Cross Won")
+            self.cross_score += 1
             return True
 
         if (np.diag(np.fliplr(self.game_grid)) == cross_win).all():
             print("Cross Won")
+            self.cross_score += 1
             return True
 
         if (np.diag(np.fliplr(self.game_grid)) == circle_win).all():
             print("Circle Won")
+            self.circle_score += 1
             return True 
         
         if (self.game_grid.diagonal() == circle_win).all():
             print("Circle Won")
+            self.circle_score += 1
             return True
         
         return False
+
+    def scores(self):
+        self.cross_score = 0
+        self.circle_score = 0
 
     def reset_game(self):
         grid_start_location = self.start_position
@@ -177,9 +189,9 @@ class TikTakToe:
         self.draw_grid(grid_start_location,grid_size)
         print("Game has been reset")
         
-
     def run(self):
         
+        self.scores()
         mouse_down = False
         x_turn = True
         running = True
@@ -210,9 +222,8 @@ class TikTakToe:
                         
                         if self.number_of_turns > 4:
                             winner_found = self.check_for_winner()
-                            if winner_found: #self.check_for_winner():
-                                #winner_found = True
-                                #running = False
+                            if winner_found:
+                                print(f"Current Scores: \n Cross: {self.cross_score}, Circles: {self.circle_score}")
                                 self.reset_game()
 
                         if self.number_of_turns == 9 and not winner_found:
