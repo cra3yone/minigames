@@ -209,13 +209,15 @@ class TikTakToe:
                             x_turn = True
                         
                         if self.number_of_turns > 4:
-                            if self.check_for_winner():
-                                winner_found = True
+                            winner_found = self.check_for_winner()
+                            if winner_found: #self.check_for_winner():
+                                #winner_found = True
                                 #running = False
                                 self.reset_game()
 
                         if self.number_of_turns == 9 and not winner_found:
                             print("It's a draw")
+                            self.reset_game()
                             
                 pygame.display.update()
 
