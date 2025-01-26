@@ -181,6 +181,7 @@ class TikTakToe:
     def scores(self):
         self.cross_score = 0
         self.circle_score = 0
+        self.drawn_games = 0
 
     def reset_game(self):
         grid_start_location = self.start_position
@@ -223,11 +224,12 @@ class TikTakToe:
                         if self.number_of_turns > 4:
                             winner_found = self.check_for_winner()
                             if winner_found:
-                                print(f"Current Scores: \n Cross: {self.cross_score}, Circles: {self.circle_score}")
+                                print(f"Current Scores: \n Cross: {self.cross_score}, Circles: {self.circle_score}, Drawn: {self.drawn_games}")
                                 self.reset_game()
 
                         if self.number_of_turns == 9 and not winner_found:
-                            print("It's a draw")
+                            self.drawn_games += 1
+                            print(f"Current Scores: \n Cross: {self.cross_score}, Circles: {self.circle_score}, Drawn: {self.drawn_games}")
                             self.reset_game()
                             
                 pygame.display.update()
