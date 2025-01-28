@@ -5,3 +5,14 @@ Break out
 
 Minesweeper
 
+Maze solver
+
+connect 4
+
+memory games
+
+box
+
+rummikub
+
+move the box
