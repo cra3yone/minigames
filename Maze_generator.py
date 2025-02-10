@@ -37,12 +37,6 @@ class Mazegenerator:
                 pygame.draw.rect(self.window,self.border_colour,
                 (starting_x + (j*self.block_size), starting_y,self.block_size,self.block_size),width=2)
             
-
-
-            
-
-
-
     def run(self):
         
         running = True
