@@ -9,6 +9,9 @@ class Mazegenerator:
         
         pygame.init()
 
+        self.rows = rows
+        self.columns = columns
+
         self.height = 500
         self.width = 700
         self.background_colour = (157,146,245)
@@ -17,11 +20,8 @@ class Mazegenerator:
         self.window.fill(self.background_colour)
 
         self.cells = []
-        self.cell_walls = []
+        self.cell_walls = [[1,1,1,1]] * self.rows * self.columns
         
-        self.rows = rows
-        self.columns = columns
-
         self.block_size = 50
 
         self.start_location = (20,20)
@@ -52,9 +52,15 @@ class Mazegenerator:
     def get_details(self):
         print(len(self.cells))
 
-        for cell in self.cells:
+        #for cell in self.cells:
+        #    print(cell)
+        
+        print(len(self.cell_walls))
+
+        for cell in self.cell_walls:
             print(cell)
-            
+
+
     def run(self):
         
         running = True
@@ -64,5 +70,5 @@ class Mazegenerator:
 
 mg = Mazegenerator(rows=5,columns=6)
 mg.draw_grid()
-#mg.get_details()
+mg.get_details()
 mg.run()
