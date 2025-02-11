@@ -1,6 +1,7 @@
 import pygame
+import time
+
 import pygame.display
-import pygame.draw 
 
 class Mazegenerator:
 
@@ -43,10 +44,17 @@ class Mazegenerator:
                 (current_x, starting_y,self.block_size,self.block_size),width=2)
 
                 self.cells.append((current_x, starting_y))
+                
+                #show the grid being made
+                #pygame.display.update()
+                #time.sleep(0.5)
     
     def get_details(self):
         print(len(self.cells))
 
+        for cell in self.cells:
+            print(cell)
+            
     def run(self):
         
         running = True
@@ -56,5 +64,5 @@ class Mazegenerator:
 
 mg = Mazegenerator(rows=5,columns=6)
 mg.draw_grid()
-mg.get_details()
+#mg.get_details()
 mg.run()
