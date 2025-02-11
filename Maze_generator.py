@@ -32,11 +32,21 @@ class Mazegenerator:
         starting_y -= self.block_size
 
         for i in range(self.rows):
+
             starting_y += self.block_size
+
             for j in range(self.columns):
+
+                current_x = starting_x + (j*self.block_size)
+
                 pygame.draw.rect(self.window,self.border_colour,
-                (starting_x + (j*self.block_size), starting_y,self.block_size,self.block_size),width=2)
-            
+                (current_x, starting_y,self.block_size,self.block_size),width=2)
+
+                self.cells.append((current_x, starting_y))
+    
+    def get_details(self):
+        print(len(self.cells))
+
     def run(self):
         
         running = True
@@ -46,4 +56,5 @@ class Mazegenerator:
 
 mg = Mazegenerator(rows=5,columns=6)
 mg.draw_grid()
+mg.get_details()
 mg.run()
