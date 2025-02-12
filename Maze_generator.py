@@ -1,8 +1,42 @@
 import pygame
+import random
 import time
 
 import pygame.display
 
+
+class Cell:
+
+    def __init__(self,coordinates,size=50,line_width=2, border_colour = (255,0,0)):
+        
+        self.x, self.y = coordinates
+        
+        self.walls = {"North": True,
+                      "East":True,
+                      "South":True,
+                      "West":True
+                      } 
+        
+        self.size = 50
+        self.line_width = 2
+        self.border_colour = self.border_colour
+
+    def draw_cell(self):
+        pass
+
+    def get_coordinates(self):
+        return (self.x, self.y)
+    
+    def get_walls(self):
+        return self.walls
+
+    def get_size(self):
+        return self.size
+
+    def get_line_width(self):
+        return self.line_width    
+
+    
 class Mazegenerator:
 
     def __init__(self,rows=5,columns=5):
@@ -20,7 +54,7 @@ class Mazegenerator:
         self.window.fill(self.background_colour)
 
         self.cells = []
-        self.cell_walls = [[1,1,1,1]] * self.rows * self.columns
+        self.cell_walls = [[1,2,3,4]] * self.rows * self.columns
         
         self.block_size = 50
 
@@ -50,11 +84,23 @@ class Mazegenerator:
                 #time.sleep(0.5)
     
     def generate_maze(self):
-        pass
+        
+        visited = []
+        start_position = random.randint(0,len(self.cells))
+        print(start_position)
 
-    def check_walls(self):
-        pass
+        while len(visited) != len(self.cells):
+            
 
+            north = 1
+            east = 1
+            south = 1
+            west = 1
+
+
+    def available_walls(self,cell_number):
+        return self.cell_walls[cell_number]
+    
     def create_wall(self, start_coordinates, end_coordinates):
 
         pygame.draw.line(self.window,self.background_colour,start_coordinates, end_coordinates,width = 2)
@@ -82,5 +128,6 @@ class Mazegenerator:
 mg = Mazegenerator(rows=5,columns=6)
 mg.draw_grid()
 #mg.get_details()
-mg.create_wall((40,100),(100,30))
+#mg.create_wall((40,100),(100,30))
+mg.generate_maze()
 mg.run()
