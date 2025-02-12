@@ -24,7 +24,28 @@ class Cell:
         self.visited = False
 
     def draw_cell(self, window):
-        pygame.draw.rect(window,self.border_colour,(self.x, self.y,self.size,self.size),width = self.line_width)
+        self.window = window
+        pygame.draw.rect(self.window,self.border_colour,(self.x, self.y,self.size,self.size),width = self.line_width)
+
+    def remove_wall(self,direction):
+        
+        if direction == "North":
+            starting_coordinate = (self.x,self.y)
+            ending_coordinate = (self.x + self.size, self.y)
+
+        elif direction == "East":
+            starting_coordinate = (self.x, self.y)
+            ending_coordinate = (self.x, self.y + self.size)
+
+        elif direction == "South":
+            starting_coordinate = (self.x, self.y+self.size)
+            ending_coordinate = (self.x + self.size, self.y + self.size)
+
+        else:
+            starting_coordinate = (self.x + self.size, self.y)
+            ending_coordinate = (self.x + self.size, self.y + self.size)
+
+        pygame.draw.line(self.window,(157,146,245),starting_coordinate, ending_coordinate,width = self.line_width)
 
     def get_coordinates(self):
         return (self.x, self.y)
