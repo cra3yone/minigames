@@ -49,6 +49,17 @@ class Mazegenerator:
                 #pygame.display.update()
                 #time.sleep(0.5)
     
+    def generate_maze(self):
+        pass
+
+    def check_walls(self):
+        pass
+
+    def create_wall(self, start_coordinates, end_coordinates):
+
+        pygame.draw.line(self.window,self.background_colour,start_coordinates, end_coordinates,width = 2)
+        #pygame.display.update()
+
     def get_details(self):
         print(len(self.cells))
 
@@ -70,5 +81,6 @@ class Mazegenerator:
 
 mg = Mazegenerator(rows=5,columns=6)
 mg.draw_grid()
-mg.get_details()
+#mg.get_details()
+mg.create_wall((40,100),(100,30))
 mg.run()
