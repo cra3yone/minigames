@@ -56,7 +56,7 @@ class Mazegenerator:
         self.window.fill(self.background_colour)
 
         self.cells = []
-        self.cell_walls = [[1,2,3,4]] * self.rows * self.columns
+        #self.cell_walls = [[1,2,3,4]] * self.rows * self.columns
         
         self.block_size = 50
 
@@ -112,18 +112,6 @@ class Mazegenerator:
 
         pygame.draw.line(self.window,self.background_colour,start_coordinates, end_coordinates,width = 2)
         #pygame.display.update()
-
-    def get_details(self):
-        print(len(self.cells))
-
-        #for cell in self.cells:
-        #    print(cell)
-        
-        print(len(self.cell_walls))
-
-        for cell in self.cell_walls:
-            print(cell)
-
 
     def run(self):
         
