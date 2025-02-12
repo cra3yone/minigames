@@ -3,6 +3,7 @@ import random
 import time
 
 import pygame.display
+import pygame.draw
 
 
 class Cell:
@@ -17,12 +18,13 @@ class Cell:
                       "West":True
                       } 
         
-        self.size = 50
-        self.line_width = 2
-        self.border_colour = self.border_colour
+        self.size = size
+        self.line_width = line_width
+        self.border_colour = border_colour
+        self.visited = False
 
-    def draw_cell(self):
-        pass
+    def draw_cell(self, window):
+        pygame.draw.rect(window,self.border_colour,(self.x, self.y,self.size,self.size),width = self.line_width)
 
     def get_coordinates(self):
         return (self.x, self.y)
@@ -74,10 +76,15 @@ class Mazegenerator:
 
                 current_x = starting_x + (j*self.block_size)
 
-                pygame.draw.rect(self.window,self.border_colour,
-                (current_x, starting_y,self.block_size,self.block_size),width=2)
+                new_cell = Cell((current_x,starting_y),size=self.block_size, line_width=2)
 
-                self.cells.append((current_x, starting_y))
+                new_cell.draw_cell(self.window)
+                self.cells.append(new_cell)
+
+                #pygame.draw.rect(self.window,self.border_colour,
+                #(current_x, starting_y,self.block_size,self.block_size),width=2)
+
+                #self.cells.append((current_x, starting_y))
                 
                 #show the grid being made
                 #pygame.display.update()
@@ -125,9 +132,9 @@ class Mazegenerator:
             pygame.display.update()
 
 
-mg = Mazegenerator(rows=5,columns=6)
+mg = Mazegenerator(rows=4,columns=5)
 mg.draw_grid()
 #mg.get_details()
 #mg.create_wall((40,100),(100,30))
-mg.generate_maze()
+#mg.generate_maze()
 mg.run()
