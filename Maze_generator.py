@@ -115,19 +115,49 @@ class Mazegenerator:
         
         visited = []
         start_position = random.randint(0,len(self.cells))
-        print(start_position)
+        starting_cell = self.cells[0]
 
-        while len(visited) != len(self.cells):
+        self.available_walls(starting_cell)
+        print(f"{starting_cell.get_coordinates() = }, {starting_cell.walls = }")
+        #while len(visited) != len(self.cells):
             
 
-            north = 1
-            east = 1
-            south = 1
-            west = 1
+        #    north = 1
+        #    east = 1
+        #    south = 1
+         #   west = 1
 
 
-    def available_walls(self,cell_number):
-        return self.cell_walls[cell_number]
+    def available_walls(self,current_cell):
+
+        x,y = current_cell.get_coordinates()
+
+        start_x, start_y = self.start_location
+
+        x_limit = self.rows * self.block_size + start_x
+        y_limit = self.columns * self.block_size + start_y
+
+        cell_walls = current_cell.walls
+        wall_keys = list(cell_walls.keys())
+        
+        if x == start_x:
+            #remove north
+            cell_walls[wall_keys[0]] = False
+
+        if y == start_y:
+            #remove east
+            cell_walls[wall_keys[1]] = False
+        
+        if y == y_limit:
+            #remove south
+            cell_walls[wall_keys[2]] = False
+            
+        if x == x_limit:
+            #remove west
+            cell_walls[wall_keys[4]] = False
+            
+
+        return cell_walls
     
     def create_wall(self, start_coordinates, end_coordinates):
 
@@ -145,5 +175,5 @@ mg = Mazegenerator(rows=4,columns=5)
 mg.draw_grid()
 #mg.get_details()
 #mg.create_wall((40,100),(100,30))
-#mg.generate_maze()
+mg.generate_maze()
 mg.run()
